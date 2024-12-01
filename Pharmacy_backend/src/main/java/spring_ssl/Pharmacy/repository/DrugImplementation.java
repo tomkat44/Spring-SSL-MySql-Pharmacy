@@ -15,7 +15,7 @@ public class DrugImplementation implements DrugService {
     private DrugRepository drugRepository;
 
     @Autowired
-    private ActiveSubstanceService activeSubstanceService;
+    private ActiveSubstanceRepository activeSubstanceRepository;
 
     @Override
     public Drug insertDrug(Drug drug){
@@ -25,6 +25,11 @@ public class DrugImplementation implements DrugService {
     @Override
     public List<Drug> getAllDrug() {
         return drugRepository.findAll();
+    }
+
+    @Override
+    public Drug singleDrug(String name) {
+        return drugRepository.getSingle(name);
     }
 
 
