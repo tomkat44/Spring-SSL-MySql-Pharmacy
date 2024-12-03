@@ -32,5 +32,54 @@ public class Prescription {
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
+    public Prescription() {
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDoctorAMKA() {
+        return doctorAMKA;
+    }
+
+    public void setDoctorAMKA(String doctorAMKA) {
+        this.doctorAMKA = doctorAMKA;
+    }
+
+    public String getPatientAMKA() {
+        return patientAMKA;
+    }
+
+    public void setPatientAMKA(String patientAMKA) {
+        this.patientAMKA = patientAMKA;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public Set<QuantityPrescription> getQuantityPrescriptions() {
+        return quantityPrescriptions;
+    }
+
+    public void setQuantityPrescriptions(Set<QuantityPrescription> quantityPrescriptions) {
+        this.quantityPrescriptions = quantityPrescriptions;
+    }
 }

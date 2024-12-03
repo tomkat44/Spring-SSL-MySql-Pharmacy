@@ -1,14 +1,12 @@
 package spring_ssl.Pharmacy.repository;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring_ssl.Pharmacy.domain.ActiveSubstance;
 import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.service.DrugService;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugImplementation implements DrugService {
@@ -40,6 +38,11 @@ public class DrugImplementation implements DrugService {
 //        System.out.println("as in drug = "+ drug.getActiveSubstance().getSubstanceName());
 //        return drug;
         return drugRepository.getSingle(name);
+    }
+
+    @Override
+    public Optional<Drug> getDrugById(int id) {
+        return drugRepository.findById(id);
     }
 
 
