@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import spring_ssl.Pharmacy.domain.ActiveSubstance;
 import spring_ssl.Pharmacy.domain.Drug;
 
 import java.util.List;

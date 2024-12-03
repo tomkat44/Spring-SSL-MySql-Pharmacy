@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring_ssl.Pharmacy.domain.ActiveSubstance;
 import spring_ssl.Pharmacy.domain.Drug;
-import spring_ssl.Pharmacy.repository.ActiveSubstanceRepository;
-import spring_ssl.Pharmacy.repository.DrugRepository;
 import spring_ssl.Pharmacy.service.ActiveSubstanceService;
 import spring_ssl.Pharmacy.service.DrugService;
 

@@ -6,8 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import spring_ssl.Pharmacy.domain.ActiveSubstance;
 
-import java.util.Optional;
-
 @Repository
 public interface ActiveSubstanceRepository extends JpaRepository <ActiveSubstance, Integer> {
 

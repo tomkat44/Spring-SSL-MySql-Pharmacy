@@ -1,9 +1,11 @@
 package spring_ssl.Pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
@@ -24,6 +26,11 @@ public class Drug {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "active_substance_id", nullable = false)
     private ActiveSubstance activeSubstance;
+
+//    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
+//    private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
+
+
 
     public int getId() {
         return id;
@@ -49,11 +56,11 @@ public class Drug {
         this.drugPrice = drugPrice;
     }
 
-    public spring_ssl.Pharmacy.domain.MedicineCategory getMedicineCategory() {
+    public MedicineCategory getMedicineCategory() {
         return medicineCategory;
     }
 
-    public void setMedicineCategory(spring_ssl.Pharmacy.domain.MedicineCategory medicineCategory) {
+    public void setMedicineCategory(MedicineCategory medicineCategory) {
         this.medicineCategory = medicineCategory;
     }
 

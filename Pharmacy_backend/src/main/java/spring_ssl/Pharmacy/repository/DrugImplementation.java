@@ -3,7 +3,6 @@ package spring_ssl.Pharmacy.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring_ssl.Pharmacy.domain.Drug;
-import spring_ssl.Pharmacy.service.ActiveSubstanceService;
 import spring_ssl.Pharmacy.service.DrugService;
 
 import java.util.List;

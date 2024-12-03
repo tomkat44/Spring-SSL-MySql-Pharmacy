@@ -3,8 +3,6 @@ package spring_ssl.Pharmacy.domain;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 
 @Entity
 @Table(name="active_substance")
@@ -19,14 +17,14 @@ public class ActiveSubstance {
     private String substanceName;
 
     @Column(name="expected_quantity")
-    private String expectedQuantity;
-
+    private int expectedQuantity;
 
 
 
     public ActiveSubstance(){
 
     }
+
 
 
     public int getId() {
@@ -45,11 +43,11 @@ public class ActiveSubstance {
         this.substanceName = substanceName;
     }
 
-    public String getExpectedQuantity() {
+    public int getExpectedQuantity() {
         return expectedQuantity;
     }
 
-    public void setExpectedQuantity(String expectedQuantity) {
+    public void setExpectedQuantity(int expectedQuantity) {
         this.expectedQuantity = expectedQuantity;
     }
 
