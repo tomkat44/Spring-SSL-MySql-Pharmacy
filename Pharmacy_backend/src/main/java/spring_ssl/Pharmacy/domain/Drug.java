@@ -1,6 +1,7 @@
 package spring_ssl.Pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
@@ -25,10 +26,11 @@ public class Drug {
     //To fetch the active substance in Postman i should write EAGER OR @JsonIgnore to avoid serialization - decetrialization
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "active_substance_id", nullable = false)
+    //@JsonIgnore
     private ActiveSubstance activeSubstance;
 
-//    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
-//    private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
+    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
+    private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
 
 

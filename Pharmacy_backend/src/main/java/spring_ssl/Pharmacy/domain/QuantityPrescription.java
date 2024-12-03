@@ -11,7 +11,7 @@ public class QuantityPrescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="quantityPrescription", length = 10, nullable = false)
+    @Column(name="quantity_prescription", length = 10, nullable = false)
     private Integer quantityPrescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
