@@ -8,7 +8,7 @@ public class QuantityPrescription {
 
     @Id
     @Column(name="Id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITYgit )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="quantityPrescription", length = 10, nullable = false)
