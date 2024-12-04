@@ -29,8 +29,78 @@ public class Prescription {
 
     /*Σχέση πολλά προς 1 το οποίο πρέπει να είναι mappedBy = "prescription" όπου
      * αυτό είναι το ίδιο όνομα με τον πίνακα @ManyToOne στο QuantityPrescription*/
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
+    public Prescription() {
+    }
 
+    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis, String creationDate) {
+        this.doctorAMKA = doctorAMKA;
+        this.patientAMKA = patientAMKA;
+        this.diagnosis = diagnosis;
+        this.creationDate = creationDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDoctorAMKA() {
+        return doctorAMKA;
+    }
+
+    public void setDoctorAMKA(String doctorAMKA) {
+        this.doctorAMKA = doctorAMKA;
+    }
+
+    public String getPatientAMKA() {
+        return patientAMKA;
+    }
+
+    public void setPatientAMKA(String patientAMKA) {
+        this.patientAMKA = patientAMKA;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public Set<QuantityPrescription> getQuantityPrescriptions() {
+        return quantityPrescriptions;
+    }
+
+    public void setQuantityPrescriptions(Set<QuantityPrescription> quantityPrescriptions) {
+        this.quantityPrescriptions = quantityPrescriptions;
+    }
+
+    public void addQuantityPrescription(QuantityPrescription qp){
+        this.quantityPrescriptions.add(qp);
+    }
+
+    public void addDrug(Drug drug, int qpNumber){
+        QuantityPrescription qp = new QuantityPrescription();
+        qp.setDrug(drug);
+        qp.setPrescription(this);
+        qp.setQuantityPrescription(qpNumber);
+
+        this.quantityPrescriptions.add(qp);
+        qp.getPrescription().addQuantityPrescription(qp);
+    }
 }

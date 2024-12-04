@@ -6,6 +6,7 @@ import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.service.DrugService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DrugImplementation implements DrugService {
@@ -28,7 +29,20 @@ public class DrugImplementation implements DrugService {
 
     @Override
     public Drug singleDrug(String name) {
+//        Drug drug = drugRepository.getSingle(name);
+//        System.out.println("Drug Name = "+ drug.getDrugName());
+//        System.out.println("as not in drug = "+ drug.getActiveSubstance().getSubstanceName());
+//        ActiveSubstance as = activeSubstanceRepository.getById(drug.getActiveSubstance().getId());
+//        System.out.println("Active Substance name = "+as.getSubstanceName());
+//        drug.setActiveSubstance(as);
+//        System.out.println("as in drug = "+ drug.getActiveSubstance().getSubstanceName());
+//        return drug;
         return drugRepository.getSingle(name);
+    }
+
+    @Override
+    public Drug getDrugById(int id) {
+        return drugRepository.getSingleById(id);
     }
 
 

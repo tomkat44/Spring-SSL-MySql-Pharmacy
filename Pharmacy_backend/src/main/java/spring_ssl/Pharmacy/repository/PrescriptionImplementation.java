@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import spring_ssl.Pharmacy.domain.Prescription;
 import spring_ssl.Pharmacy.service.PrescriptionService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
