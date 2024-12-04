@@ -2,11 +2,12 @@ package spring_ssl.Pharmacy.domain;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 @Entity
 @Table(name="quantity_prescriptions")
-public class QuantityPrescription {
+public class QuantityPrescription implements Serializable {
 
     //@EmbeddedId
     //@Column(name="id", nullable = false)

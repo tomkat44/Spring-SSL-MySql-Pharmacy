@@ -35,11 +35,11 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis, String creationDate) {
+    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis) {
         this.doctorAMKA = doctorAMKA;
         this.patientAMKA = patientAMKA;
         this.diagnosis = diagnosis;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now().toString();
     }
 
     public int getId() {

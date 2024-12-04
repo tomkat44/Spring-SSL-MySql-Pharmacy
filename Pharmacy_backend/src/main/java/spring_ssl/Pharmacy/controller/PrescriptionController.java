@@ -33,33 +33,13 @@ public class PrescriptionController {
     private DrugService drugService;
     private DrugRepository drugRepository;
 
-    @PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
-    public ResponseEntity<Prescription> createPrescription(@PathVariable(value = "drugId") int drugId,
-                                                           @PathVariable(value = "qpNumber") int qpNumber,
+    //@PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
+    @PostMapping("/createPrescription")
+    public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
+                                                           @PathVariable(value = "qpNumber") int qpNumber,*/
                                                            @RequestBody Prescription prescriptionRequest){
-
-        QuantityPrescription qp = quantityPrescriptionController.createQuantityPrescription2(qpNumber, drugService.getDrugById(drugId));
-//        QuantityPrescription qp = new QuantityPrescription();
-//        quantityPrescriptionRepository.save(qp);
-
-        Prescription _prescription = prescriptionService.insertPrescription(new Prescription(prescriptionRequest.getDoctorAMKA(),
-                prescriptionRequest.getDoctorAMKA(), prescriptionRequest.getDiagnosis(), prescriptionRequest.getCreationDate()));
-
-        System.out.println("prescription ID = "+_prescription.getId());
-        //QuantityPrescription qp = new QuantityPrescription(qpNumber, drugService.getDrugById(drugId));
-
-        //QuantityPrescription qp = new QuantityPrescription(qpNumber, drugService.getDrugById(drugId), _prescription);
-
-
-
-        //QuantityPrescription qp = quantityPrescriptionService.insertQuantityPrescription(new QuantityPrescription(qpNumber, drugService.getDrugById(drugId)));
-        //System.out.println("qpNumber= "+qp.getQuantityPrescription()+"qpId= "+qp.getId()+"drudId= "+ drugService.getDrugById(drugId).getDrugName());
-        _prescription.addQuantityPrescription(qp);
-
-
-        prescriptionRepository.save(_prescription);
-
-        return new ResponseEntity<>(_prescription, HttpStatus.CREATED);
+        prescriptionService.insertPrescription(prescriptionRequest);
+        return new ResponseEntity<>(prescriptionRequest, HttpStatus.CREATED);
     }
 
 
