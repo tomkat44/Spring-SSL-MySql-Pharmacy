@@ -10,7 +10,9 @@ import java.util.List;
 
 @Repository
 public interface DrugRepository extends JpaRepository<Drug, Integer> {
-    List<Drug> findActiveSubstanceById(int id);
+
+    @Query(value="SELECT d from Drug d where d.id=:val")
+    public Drug getSingleById(@Param("val") int drugId);
 
     @Query(value="SELECT d from Drug d where d.drugName=:val")
     //@Query(value="SELECT d from Drug d inner join ActiveSubstance a on d.active_substance_id=a.id where d.drugName=:val")

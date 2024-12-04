@@ -29,8 +29,8 @@ public class Drug {
     //@JsonIgnore
     private ActiveSubstance activeSubstance;
 
-    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
-    private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
+//    @OneToMany(mappedBy = "drug", fetch = FetchType.LAZY)
+//    private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
 
 

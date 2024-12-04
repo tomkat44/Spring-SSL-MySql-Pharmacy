@@ -14,5 +14,5 @@ public interface DrugService {
 
     public Drug singleDrug(String name);
 
-    public Optional<Drug> getDrugById(int id);
+    public Drug getDrugById(int id);
 }

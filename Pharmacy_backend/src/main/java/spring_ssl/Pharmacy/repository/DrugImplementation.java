@@ -41,8 +41,8 @@ public class DrugImplementation implements DrugService {
     }
 
     @Override
-    public Optional<Drug> getDrugById(int id) {
-        return drugRepository.findById(id);
+    public Drug getDrugById(int id) {
+        return drugRepository.getSingleById(id);
     }
 
 

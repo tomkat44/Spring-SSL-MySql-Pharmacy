@@ -29,10 +29,17 @@ public class Prescription {
 
     /*Σχέση πολλά προς 1 το οποίο πρέπει να είναι mappedBy = "prescription" όπου
      * αυτό είναι το ίδιο όνομα με τον πίνακα @ManyToOne στο QuantityPrescription*/
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
     public Prescription() {
+    }
+
+    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis, String creationDate) {
+        this.doctorAMKA = doctorAMKA;
+        this.patientAMKA = patientAMKA;
+        this.diagnosis = diagnosis;
+        this.creationDate = creationDate;
     }
 
     public int getId() {
@@ -81,5 +88,19 @@ public class Prescription {
 
     public void setQuantityPrescriptions(Set<QuantityPrescription> quantityPrescriptions) {
         this.quantityPrescriptions = quantityPrescriptions;
+    }
+
+    public void addQuantityPrescription(QuantityPrescription qp){
+        this.quantityPrescriptions.add(qp);
+    }
+
+    public void addDrug(Drug drug, int qpNumber){
+        QuantityPrescription qp = new QuantityPrescription();
+        qp.setDrug(drug);
+        qp.setPrescription(this);
+        qp.setQuantityPrescription(qpNumber);
+
+        this.quantityPrescriptions.add(qp);
+        qp.getPrescription().addQuantityPrescription(qp);
     }
 }

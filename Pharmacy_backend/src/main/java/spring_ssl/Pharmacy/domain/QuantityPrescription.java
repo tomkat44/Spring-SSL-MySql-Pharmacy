@@ -8,24 +8,44 @@ import java.util.Optional;
 @Table(name="quantity_prescriptions")
 public class QuantityPrescription {
 
+    //@EmbeddedId
+    //@Column(name="id", nullable = false)
     @Id
-    @Column(name="Id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="quantity_prescription", length = 10, nullable = false)
-    private Integer quantityPrescription;
+//    @Id
+//    private int prescription_id;
+//    @Id
+//    private int drug_id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name="quantity_prescription", length = 10, nullable = false)
+    private int quantityPrescription;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@MapsId("drug_id")
     @JoinColumn(name = "drug_id", nullable = false)
     private Drug drug;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    //@MapsId("prescription_id")
     @JoinColumn(name = "prescription_id")
     private Prescription prescription; //Αυτό το όνομα πρέπει να είναι το ίδιο στο mappedBy = "prescription"
 
 
     public QuantityPrescription() {
+    }
+
+    public QuantityPrescription(Integer quantityPrescription, Drug drug, Prescription prescription) {
+        this.quantityPrescription = quantityPrescription;
+        this.drug = drug;
+        this.prescription = prescription;
+    }
+
+    public QuantityPrescription(Integer quantityPrescription, Drug drug) {
+        this.quantityPrescription = quantityPrescription;
+        this.drug = drug;
+
     }
 
     public Integer getId() {
@@ -59,4 +79,5 @@ public class QuantityPrescription {
     public void setPrescription(Prescription prescription) {
         this.prescription = prescription;
     }
+
 }
