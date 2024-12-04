@@ -10,6 +10,6 @@ public interface PrescriptionService {
 
     public Optional<Prescription> findPrescriptionById(int prescriptionId);
 
-
+    public Prescription getPrescriptionById(int prescriptionId);
 
 }

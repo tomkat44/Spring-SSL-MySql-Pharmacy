@@ -23,4 +23,9 @@ public class PrescriptionImplementation implements PrescriptionService {
     public Optional<Prescription> findPrescriptionById(int prescriptionId) {
         return prescriptionRepository.findById(prescriptionId);
     }
+
+    @Override
+    public Prescription getPrescriptionById(int prescriptionId){
+        return prescriptionRepository.getSingleById(prescriptionId);
+    }
 }

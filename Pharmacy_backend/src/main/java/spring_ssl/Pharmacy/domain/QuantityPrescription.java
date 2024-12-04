@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name="quantity_prescriptions")
-public class QuantityPrescription implements Serializable {
+public class QuantityPrescription {
 
     //@EmbeddedId
     //@Column(name="id", nullable = false)
@@ -23,12 +23,12 @@ public class QuantityPrescription implements Serializable {
     @Column(name="quantity_prescription", length = 10, nullable = false)
     private int quantityPrescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     //@MapsId("drug_id")
     @JoinColumn(name = "drug_id", nullable = false)
     private Drug drug;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     //@MapsId("prescription_id")
     @JoinColumn(name = "prescription_id")
     private Prescription prescription; //Αυτό το όνομα πρέπει να είναι το ίδιο στο mappedBy = "prescription"

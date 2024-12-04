@@ -45,7 +45,7 @@ public class PrescriptionController {
 
 
     @GetMapping("/{prescriptionId}")
-    public ResponseEntity<Optional<Prescription>> getSinglePrescription(@PathVariable int prescriptionId){
-        return new ResponseEntity<Optional<Prescription>>(prescriptionService.findPrescriptionById(prescriptionId), HttpStatus.OK);
+    public ResponseEntity<Prescription> getSinglePrescription(@PathVariable int prescriptionId){
+        return new ResponseEntity<Prescription>(prescriptionService.getPrescriptionById(prescriptionId), HttpStatus.OK);
     }
 }

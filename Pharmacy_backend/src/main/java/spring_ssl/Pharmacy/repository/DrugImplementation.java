@@ -6,7 +6,6 @@ import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.service.DrugService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DrugImplementation implements DrugService {
