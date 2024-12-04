@@ -10,6 +10,7 @@ import spring_ssl.Pharmacy.domain.QuantityPrescription;
 import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
 @RestController
+@RequestMapping("/createPrescription")
 @CrossOrigin //to avoid CORS problem
 public class QuantityPrescriptionController {
 

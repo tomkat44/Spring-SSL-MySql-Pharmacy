@@ -34,7 +34,7 @@ public class PrescriptionController {
     private DrugRepository drugRepository;
 
     //@PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
-    @PostMapping("/createPrescription")
+    @PostMapping("/add")
     public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
                                                            @PathVariable(value = "qpNumber") int qpNumber,*/
                                                            @RequestBody Prescription prescriptionRequest){
