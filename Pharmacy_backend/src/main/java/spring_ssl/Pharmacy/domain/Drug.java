@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+//The following line help to ignore the multiple feedback from DB because of the EAGER.
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 public class Drug {

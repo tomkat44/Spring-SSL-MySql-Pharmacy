@@ -23,6 +23,7 @@ public class QuantityPrescriptionController {
     private DrugService drugService;
     @Autowired
     private PrescriptionService prescriptionService;
+
     @PostMapping("/add")
     public QuantityPrescription createQuantityPrescription(@RequestBody QuantityPrescription quantityPrescriptionRequest) {
         return quantityPrescriptionService.insertQuantityPrescription(quantityPrescriptionRequest);
@@ -41,18 +42,5 @@ public class QuantityPrescriptionController {
         return new ResponseEntity<>(quantityPrescriptionRequest, HttpStatus.CREATED);
     }
 
-
-    public QuantityPrescription createQuantityPrescription2(int qpNumber, Drug drug) {
-
-        System.out.println("qpNumber= "+qpNumber+"drudId= "+ drug.getDrugName());
-
-        QuantityPrescription qp = new QuantityPrescription();
-        qp.setQuantityPrescription(qpNumber);
-        //qp.setPrescription(prescription);
-        qp.setDrug(drug);
-        System.out.println("qpNumber= "+qp.getQuantityPrescription()+"qpId= "+qp.getId()+"drudId= "+ drug.getDrugName());
-        quantityPrescriptionService.insertQuantityPrescription(qp);
-        return qp;
-    }
 
 }

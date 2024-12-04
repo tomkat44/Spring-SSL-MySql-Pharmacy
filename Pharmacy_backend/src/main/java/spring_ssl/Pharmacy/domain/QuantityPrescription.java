@@ -1,36 +1,31 @@
 package spring_ssl.Pharmacy.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.util.Optional;
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name="quantity_prescriptions")
 public class QuantityPrescription {
 
-    //@EmbeddedId
-    //@Column(name="id", nullable = false)
     @Id
+    @Column(name="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-//    @Id
-//    private int prescription_id;
-//    @Id
-//    private int drug_id;
 
     @Column(name="quantity_prescription", length = 10, nullable = false)
     private int quantityPrescription;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    //@MapsId("drug_id")
     @JoinColumn(name = "drug_id", nullable = false)
+    //@JsonIgnore
     private Drug drug;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    //@MapsId("prescription_id")
     @JoinColumn(name = "prescription_id")
+    //@JsonIgnore
     private Prescription prescription; //Αυτό το όνομα πρέπει να είναι το ίδιο στο mappedBy = "prescription"
 
 

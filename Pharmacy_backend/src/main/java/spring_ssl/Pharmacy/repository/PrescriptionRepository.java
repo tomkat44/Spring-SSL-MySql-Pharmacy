@@ -9,6 +9,7 @@ import spring_ssl.Pharmacy.domain.Prescription;
 
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
+
     @Query(value="SELECT p from Prescription p where p.id=:val")
     public Prescription getSingleById(@Param("val") int prescriptionId);
 }
