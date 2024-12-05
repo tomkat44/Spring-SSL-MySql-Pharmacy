@@ -45,7 +45,6 @@ public class PrescriptionController {
         this.quantityPrescriptionService = quantityPrescriptionService;
     }
 
-    //@PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
