@@ -14,7 +14,7 @@ public class DrugImplementation implements DrugService {
     private DrugRepository drugRepository;
 
     @Override
-    public Drug addDrug(Drug drug){
+    public Drug insertDrug(Drug drug){
         return drugRepository.save(drug);
     }
 

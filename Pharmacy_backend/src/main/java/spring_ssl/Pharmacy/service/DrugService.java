@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface DrugService {
 
-    public Drug addDrug(Drug drug);
+    public Drug insertDrug(Drug drug);
 
     public List<Drug> getAllDrug();
 

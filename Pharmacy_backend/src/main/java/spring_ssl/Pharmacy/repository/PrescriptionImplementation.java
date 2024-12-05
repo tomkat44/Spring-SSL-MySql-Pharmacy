@@ -13,24 +13,12 @@ public class PrescriptionImplementation implements PrescriptionService {
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
+    @Override
+    public Prescription insertPrescription(Prescription prescription) {return prescriptionRepository.save(prescription);}
 
     @Override
-    public Prescription insertPrescription(Prescription prescription) {
-        return prescriptionRepository.save(prescription);
-    }
+    public Optional<Prescription> findPrescriptionById(int prescriptionId) {return prescriptionRepository.findById(prescriptionId);}
 
     @Override
-    public Prescription insertPrescriptionQuery(Prescription prescription) {
-        return null;
-    }
-
-    @Override
-    public Optional<Prescription> findPrescriptionById(int prescriptionId) {
-        return prescriptionRepository.findById(prescriptionId);
-    }
-
-    @Override
-    public Prescription getPrescriptionById(int prescriptionId){
-        return prescriptionRepository.getSingleById(prescriptionId);
-    }
+    public Prescription getPrescriptionById(int prescriptionId){return prescriptionRepository.getSingleById(prescriptionId);}
 }

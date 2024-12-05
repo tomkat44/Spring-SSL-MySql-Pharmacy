@@ -10,7 +10,6 @@ import java.util.Optional;
 @Service
 public class QuantityPrescriptionImplementation implements QuantityPrescriptionService {
 
-
     @Autowired
     private QuantityPrescriptionRepository quantityPrescriptionRepository;
 

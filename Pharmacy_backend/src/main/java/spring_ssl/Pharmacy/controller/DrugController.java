@@ -22,22 +22,21 @@ public class DrugController {
     private ActiveSubstanceService activeSubstanceService;
 
 
-    @PostMapping("/activesubstance/{substanceId}/insertdrug")
+    @PostMapping("/add/{substanceId}")
     public ResponseEntity<Drug> createDrug(@PathVariable(value = "substanceId") int substanceId,
                                               @RequestBody Drug drugRequest) {
         Drug drug = activeSubstanceService.findSubstanceById(substanceId).map(activeSubstance -> {
             drugRequest.setActiveSubstance(activeSubstance);
-            return drugService.addDrug(drugRequest);
+            return drugService.insertDrug(drugRequest);
         }).orElseThrow();
 
         return new ResponseEntity<>(drug, HttpStatus.CREATED);
     }
 
-
     @GetMapping("/getAll")
     public List<Drug> list() {return drugService.getAllDrug();}
 
-    @GetMapping("/{drugName}")
+    @GetMapping("/getSingle/{drugName}")
     public ResponseEntity<Drug> getSingleDrug(@PathVariable String drugName){
         return new ResponseEntity<Drug>(drugService.getSingleDrugByName(drugName), HttpStatus.OK);
     }

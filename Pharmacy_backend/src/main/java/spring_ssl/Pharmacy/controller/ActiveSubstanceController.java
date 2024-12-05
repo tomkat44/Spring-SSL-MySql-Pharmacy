@@ -19,15 +19,15 @@ public class ActiveSubstanceController {
     private ActiveSubstanceService activeSubstanceService;
 
     @PostMapping ("/add")
-    public String add(@RequestBody ActiveSubstance activeSubstance){
+    public ResponseEntity<ActiveSubstance> add(@RequestBody ActiveSubstance activeSubstance){
         activeSubstanceService.insertActiveSubstance(activeSubstance);
-        return "New active Substance in inserted";
+        return new ResponseEntity<>(activeSubstance, HttpStatus.CREATED);
     }
 
     @GetMapping ("/getAll")
     public List<ActiveSubstance> list() {return activeSubstanceService.getAllActiveSubstance();}
 
-    @GetMapping("/{substanceName}")
+    @GetMapping("/getSingle/{substanceName}")
     public ResponseEntity<ActiveSubstance> getSingleActiveSubstance(@PathVariable String substanceName){
         return new ResponseEntity<ActiveSubstance>(activeSubstanceService.singleActiveSubstance(substanceName), HttpStatus.OK);
     }

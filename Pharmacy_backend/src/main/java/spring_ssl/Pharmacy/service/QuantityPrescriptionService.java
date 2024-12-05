@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface QuantityPrescriptionService {
 
-
-
     public QuantityPrescription insertQuantityPrescription(QuantityPrescription quantityPrescription);
 
     public Optional<QuantityPrescription> findQuantityPrescriptionById(int quantityPrescriptionId);

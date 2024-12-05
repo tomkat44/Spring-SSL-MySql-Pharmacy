@@ -14,16 +14,11 @@ public class ActiveSubstanceImplementation implements ActiveSubstanceService {
     @Autowired
     private ActiveSubstanceRepository activeSubstanceRepository;
 
+    @Override
+    public ActiveSubstance insertActiveSubstance(ActiveSubstance activeSubstance) {return activeSubstanceRepository.save(activeSubstance);}
 
     @Override
-    public ActiveSubstance insertActiveSubstance(ActiveSubstance activeSubstance) {
-        return activeSubstanceRepository.save(activeSubstance);
-    }
-
-    @Override
-    public Optional<ActiveSubstance> findSubstanceById(int substanceId) {
-        return activeSubstanceRepository.findById(substanceId);
-    }
+    public Optional<ActiveSubstance> findSubstanceById(int substanceId) {return activeSubstanceRepository.findById(substanceId);}
 
     @Override
     public List<ActiveSubstance> getAllActiveSubstance() {
@@ -31,8 +26,6 @@ public class ActiveSubstanceImplementation implements ActiveSubstanceService {
     }
 
     @Override
-    public ActiveSubstance singleActiveSubstance(String name) {
-        return activeSubstanceRepository.getSingleByName(name);
-    }
+    public ActiveSubstance singleActiveSubstance(String name) {return activeSubstanceRepository.getSingleByName(name);}
 
 }

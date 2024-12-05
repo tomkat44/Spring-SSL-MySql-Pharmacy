@@ -14,6 +14,4 @@ public interface ActiveSubstanceService {
     public List<ActiveSubstance> getAllActiveSubstance();
 
     public ActiveSubstance singleActiveSubstance(String name);
-
-
 }

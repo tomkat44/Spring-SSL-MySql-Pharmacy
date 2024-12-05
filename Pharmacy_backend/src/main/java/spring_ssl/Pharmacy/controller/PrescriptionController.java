@@ -26,17 +26,6 @@ import java.util.Set;
 public class PrescriptionController {
 
     @Autowired
-    //private PrescriptionService prescriptionService;
-    private QuantityPrescriptionRepository quantityPrescriptionRepository;
-   // private QuantityPrescriptionService quantityPrescriptionService;
-    private PrescriptionRepository prescriptionRepository;
-    private QuantityPrescriptionController quantityPrescriptionController;
-
-    @Autowired
-    private DrugService drugService;
-    private DrugRepository drugRepository;
-
-    @Autowired
     private final PrescriptionService prescriptionService;
     private final QuantityPrescriptionService quantityPrescriptionService;
 
@@ -47,11 +36,7 @@ public class PrescriptionController {
 
     @PostMapping("/add")
     @Transactional
-    public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
-                                                           @PathVariable(value = "qpNumber") int qpNumber,*/
-                                                           @RequestBody Prescription prescriptionRequest){
-       // prescriptionService.insertPrescription(prescriptionRequest);
-       // System.out.println("Prescription ID = "+prescriptionRequest.getId());
+    public ResponseEntity<Prescription> createPrescription(@RequestBody Prescription prescriptionRequest){
 
         Prescription prescription = new Prescription();
         prescription.setDoctorAMKA(prescriptionRequest.getDoctorAMKA());
