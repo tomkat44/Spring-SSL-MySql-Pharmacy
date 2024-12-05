@@ -20,6 +20,11 @@ public class PrescriptionImplementation implements PrescriptionService {
     }
 
     @Override
+    public Prescription insertPrescriptionQuery(Prescription prescription) {
+        return null;
+    }
+
+    @Override
     public Optional<Prescription> findPrescriptionById(int prescriptionId) {
         return prescriptionRepository.findById(prescriptionId);
     }

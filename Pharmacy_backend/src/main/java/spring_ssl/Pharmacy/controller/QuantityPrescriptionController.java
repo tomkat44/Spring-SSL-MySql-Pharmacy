@@ -12,6 +12,10 @@ import spring_ssl.Pharmacy.service.DrugService;
 import spring_ssl.Pharmacy.service.PrescriptionService;
 import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/createPrescription")
 @CrossOrigin //to avoid CORS problem
@@ -42,7 +46,9 @@ public class QuantityPrescriptionController {
         return new ResponseEntity<>(quantityPrescriptionRequest, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<QuantityPrescription> addPrescriptionToQP(QuantityPrescription quantityPrescriptionRequest) {
+    @PostMapping("/create")
+    @Transactional
+    public ResponseEntity<QuantityPrescription> createPrescription(@RequestBody QuantityPrescription quantityPrescriptionRequest) {
         quantityPrescriptionService.insertQuantityPrescription(quantityPrescriptionRequest);
         return new ResponseEntity<>(quantityPrescriptionRequest, HttpStatus.CREATED);
     }

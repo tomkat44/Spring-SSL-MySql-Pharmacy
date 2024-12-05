@@ -26,9 +26,9 @@ import java.util.Set;
 public class PrescriptionController {
 
     @Autowired
-    private PrescriptionService prescriptionService;
+    //private PrescriptionService prescriptionService;
     private QuantityPrescriptionRepository quantityPrescriptionRepository;
-    private QuantityPrescriptionService quantityPrescriptionService;
+   // private QuantityPrescriptionService quantityPrescriptionService;
     private PrescriptionRepository prescriptionRepository;
     private QuantityPrescriptionController quantityPrescriptionController;
 
@@ -36,20 +36,39 @@ public class PrescriptionController {
     private DrugService drugService;
     private DrugRepository drugRepository;
 
+    @Autowired
+    private final PrescriptionService prescriptionService;
+    private final QuantityPrescriptionService quantityPrescriptionService;
+
+    public PrescriptionController(PrescriptionService prescriptionService, QuantityPrescriptionService quantityPrescriptionService) {
+        this.prescriptionService = prescriptionService;
+        this.quantityPrescriptionService = quantityPrescriptionService;
+    }
+
     //@PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
                                                            @PathVariable(value = "qpNumber") int qpNumber,*/
                                                            @RequestBody Prescription prescriptionRequest){
-        prescriptionService.insertPrescription(prescriptionRequest);
-        System.out.println("Prescription ID = "+prescriptionRequest.getId());
+       // prescriptionService.insertPrescription(prescriptionRequest);
+       // System.out.println("Prescription ID = "+prescriptionRequest.getId());
 
-//        List<QuantityPrescription> qps = new ArrayList<>();
-//        for (QuantityPrescription qp : prescriptionRequest.getQuantityPrescriptions()) {
-//            qp.setPrescription(prescriptionRequest);
-//            quantityPrescriptionController.addPrescriptionToQP(qp);
-//        }
+        Prescription prescription = new Prescription();
+        prescription.setDoctorAMKA(prescriptionRequest.getDoctorAMKA());
+        prescription.setPatientAMKA(prescriptionRequest.getPatientAMKA());
+        prescription.setDiagnosis(prescriptionRequest.getDiagnosis());
+        prescription.setCreationDate(prescriptionRequest.getCreationDate());
+        Prescription savedPrescription = prescriptionService.insertPrescription(prescription);
+
+        // Step 2: Save QuantityPrescriptions linked to the Prescription
+        for (QuantityPrescription quantityData : prescriptionRequest.getQuantityPrescriptions()) {
+            QuantityPrescription quantityPrescription = new QuantityPrescription();
+            quantityPrescription.setPrescription(savedPrescription);
+            quantityPrescription.setQuantityPrescription(quantityData.getQuantityPrescription());
+            quantityPrescription.setDrug(quantityData.getDrug());
+            quantityPrescriptionService.insertQuantityPrescription(quantityPrescription);
+        }
         return new ResponseEntity<>(prescriptionRequest, HttpStatus.CREATED);
     }
 

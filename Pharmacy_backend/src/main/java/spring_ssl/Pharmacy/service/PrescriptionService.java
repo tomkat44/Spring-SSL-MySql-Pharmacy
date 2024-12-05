@@ -8,6 +8,8 @@ public interface PrescriptionService {
 
     public Prescription insertPrescription(Prescription prescription);
 
+    public Prescription insertPrescriptionQuery(Prescription prescription);
+
     public Optional<Prescription> findPrescriptionById(int prescriptionId);
 
     public Prescription getPrescriptionById(int prescriptionId);

@@ -38,11 +38,12 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis) {
+    public Prescription(String doctorAMKA, String patientAMKA, String diagnosis, QuantityPrescription quantityPrescription) {
         this.doctorAMKA = doctorAMKA;
         this.patientAMKA = patientAMKA;
         this.diagnosis = diagnosis;
         this.creationDate = LocalDate.now().toString();
+        this.quantityPrescriptions = (Set<QuantityPrescription>) quantityPrescription;
     }
 
     public int getId() {
