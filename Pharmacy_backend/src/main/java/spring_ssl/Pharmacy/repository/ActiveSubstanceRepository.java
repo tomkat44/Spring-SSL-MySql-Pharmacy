@@ -9,8 +9,9 @@ import spring_ssl.Pharmacy.domain.ActiveSubstance;
 @Repository
 public interface ActiveSubstanceRepository extends JpaRepository <ActiveSubstance, Integer> {
 
-
+    @Query(value="SELECT a from ActiveSubstance a where a.id=:val")
+    public ActiveSubstance getSingleById(@Param("val") int substanceId);
 
     @Query(value="SELECT a from ActiveSubstance a where a.substanceName=:val")
-    public ActiveSubstance getSingle(@Param("val") String substanceName);
+    public ActiveSubstance getSingleByName(@Param("val") String substanceName);
 }

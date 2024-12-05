@@ -15,8 +15,6 @@ public interface DrugRepository extends JpaRepository<Drug, Integer> {
     public Drug getSingleById(@Param("val") int drugId);
 
     @Query(value="SELECT d from Drug d where d.drugName=:val")
-    //@Query(value="SELECT d from Drug d inner join ActiveSubstance a on d.active_substance_id=a.id where d.drugName=:val")
-    public Drug getSingle(@Param("val") String drugName);
-
+    public Drug getSingleByName(@Param("val") String drugName);
 
 }

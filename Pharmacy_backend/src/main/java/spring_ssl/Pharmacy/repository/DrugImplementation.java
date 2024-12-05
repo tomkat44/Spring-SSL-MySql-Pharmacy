@@ -13,11 +13,8 @@ public class DrugImplementation implements DrugService {
     @Autowired
     private DrugRepository drugRepository;
 
-    @Autowired
-    private ActiveSubstanceRepository activeSubstanceRepository;
-
     @Override
-    public Drug insertDrug(Drug drug){
+    public Drug addDrug(Drug drug){
         return drugRepository.save(drug);
     }
 
@@ -27,22 +24,9 @@ public class DrugImplementation implements DrugService {
     }
 
     @Override
-    public Drug singleDrug(String name) {
-//        Drug drug = drugRepository.getSingle(name);
-//        System.out.println("Drug Name = "+ drug.getDrugName());
-//        System.out.println("as not in drug = "+ drug.getActiveSubstance().getSubstanceName());
-//        ActiveSubstance as = activeSubstanceRepository.getById(drug.getActiveSubstance().getId());
-//        System.out.println("Active Substance name = "+as.getSubstanceName());
-//        drug.setActiveSubstance(as);
-//        System.out.println("as in drug = "+ drug.getActiveSubstance().getSubstanceName());
-//        return drug;
-        return drugRepository.getSingle(name);
-    }
+    public Drug getSingleDrugByName(String name) {return drugRepository.getSingleByName(name);}
 
     @Override
-    public Drug getDrugById(int id) {
-        return drugRepository.getSingleById(id);
-    }
-
+    public Drug getSingleDrugById(int id) {return drugRepository.getSingleById(id);}
 
 }

@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface DrugService {
 
-    public Drug insertDrug(Drug drug);
+    public Drug addDrug(Drug drug);
 
     public List<Drug> getAllDrug();
 
-    public Drug singleDrug(String name);
+    public Drug getSingleDrugByName(String name);
 
-    public Drug getDrugById(int id);
+    public Drug getSingleDrugById(int id);
 }

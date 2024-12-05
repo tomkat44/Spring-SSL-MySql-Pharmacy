@@ -32,7 +32,7 @@ public class Prescription {
 
     /*Σχέση πολλά προς 1 το οποίο πρέπει να είναι mappedBy = "prescription" όπου
      * αυτό είναι το ίδιο όνομα με τον πίνακα @ManyToOne στο QuantityPrescription*/
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
     private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
 
     public Prescription() {

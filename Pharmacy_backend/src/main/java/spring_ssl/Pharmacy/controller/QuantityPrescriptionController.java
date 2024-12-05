@@ -35,12 +35,16 @@ public class QuantityPrescriptionController {
                                            @PathVariable(value = "prescriptionId") int prescriptionId,
                                            @RequestBody QuantityPrescription quantityPrescriptionRequest) {
         quantityPrescriptionRequest.setQuantityPrescription(qpNumber);
-        quantityPrescriptionRequest.setDrug(drugService.getDrugById(drugId));
+        quantityPrescriptionRequest.setDrug(drugService.getSingleDrugById(drugId));
         quantityPrescriptionRequest.setPrescription(prescriptionService.getPrescriptionById(prescriptionId));
         quantityPrescriptionService.insertQuantityPrescription(quantityPrescriptionRequest);
 
         return new ResponseEntity<>(quantityPrescriptionRequest, HttpStatus.CREATED);
     }
 
+    public ResponseEntity<QuantityPrescription> addPrescriptionToQP(QuantityPrescription quantityPrescriptionRequest) {
+        quantityPrescriptionService.insertQuantityPrescription(quantityPrescriptionRequest);
+        return new ResponseEntity<>(quantityPrescriptionRequest, HttpStatus.CREATED);
+    }
 
 }

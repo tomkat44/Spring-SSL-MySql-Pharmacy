@@ -14,6 +14,9 @@ import spring_ssl.Pharmacy.service.DrugService;
 import spring_ssl.Pharmacy.service.PrescriptionService;
 import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,10 +38,18 @@ public class PrescriptionController {
 
     //@PostMapping("/createPrescription/{drugId}/{qpNumber}/drug")
     @PostMapping("/add")
+    @Transactional
     public ResponseEntity<Prescription> createPrescription(/*@PathVariable(value = "drugId") int drugId,
                                                            @PathVariable(value = "qpNumber") int qpNumber,*/
                                                            @RequestBody Prescription prescriptionRequest){
         prescriptionService.insertPrescription(prescriptionRequest);
+        System.out.println("Prescription ID = "+prescriptionRequest.getId());
+
+//        List<QuantityPrescription> qps = new ArrayList<>();
+//        for (QuantityPrescription qp : prescriptionRequest.getQuantityPrescriptions()) {
+//            qp.setPrescription(prescriptionRequest);
+//            quantityPrescriptionController.addPrescriptionToQP(qp);
+//        }
         return new ResponseEntity<>(prescriptionRequest, HttpStatus.CREATED);
     }
 

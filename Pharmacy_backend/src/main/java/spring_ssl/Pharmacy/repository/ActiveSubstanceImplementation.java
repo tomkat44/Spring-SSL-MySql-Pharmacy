@@ -32,7 +32,7 @@ public class ActiveSubstanceImplementation implements ActiveSubstanceService {
 
     @Override
     public ActiveSubstance singleActiveSubstance(String name) {
-        return activeSubstanceRepository.getSingle(name);
+        return activeSubstanceRepository.getSingleByName(name);
     }
 
 }

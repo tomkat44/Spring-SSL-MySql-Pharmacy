@@ -27,7 +27,7 @@ public class DrugController {
                                               @RequestBody Drug drugRequest) {
         Drug drug = activeSubstanceService.findSubstanceById(substanceId).map(activeSubstance -> {
             drugRequest.setActiveSubstance(activeSubstance);
-            return drugService.insertDrug(drugRequest);
+            return drugService.addDrug(drugRequest);
         }).orElseThrow();
 
         return new ResponseEntity<>(drug, HttpStatus.CREATED);
@@ -39,6 +39,6 @@ public class DrugController {
 
     @GetMapping("/{drugName}")
     public ResponseEntity<Drug> getSingleDrug(@PathVariable String drugName){
-        return new ResponseEntity<Drug>(drugService.singleDrug(drugName), HttpStatus.OK);
+        return new ResponseEntity<Drug>(drugService.getSingleDrugByName(drugName), HttpStatus.OK);
     }
 }
