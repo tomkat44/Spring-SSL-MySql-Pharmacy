@@ -3,6 +3,7 @@ package spring_ssl.Pharmacy.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import spring_ssl.Pharmacy.repository.PrescriptionExecutionRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -32,7 +33,11 @@ public class Prescription {
     @Column(name="creation_Date", length=40)
     private String creationDate = LocalDate.now().toString();
 
-    @OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
+//    @OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
+//    private PrescriptionExecution prescriptionExecution;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prescription_execution_id")
     private PrescriptionExecution prescriptionExecution;
 
 

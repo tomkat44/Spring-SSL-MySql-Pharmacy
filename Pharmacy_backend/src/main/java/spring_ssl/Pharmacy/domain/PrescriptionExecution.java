@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = PrescriptionExecution.class)
 @Entity
@@ -29,29 +31,33 @@ public class PrescriptionExecution {
     @Column(name="execution_flag", length=15)
     private executionPrescriptionFlag executionFlag;
 
+    @OneToOne(mappedBy = "prescriptionExecution", cascade = CascadeType.ALL)
+    private Prescription prescription;
+
 //    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 //    @JoinColumn(name = "pharmacist_id")
 //    private Pharmacist pharmacist;
 
-//    //Σύνδεση με το QuantityExecution
-//    @OneToMany(mappedBy = "prescription_execution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<QuantityExecution> quantityExecutions = new HashSet<QuantityExecution>();
+    //Σύνδεση με το QuantityExecution
+    @OneToMany(mappedBy = "prescriptionExecution", cascade = CascadeType.ALL)
+    private Set<QuantityExecution> quantityExecutions = new HashSet<QuantityExecution>();
 
 
     /*Το θέλω για να μπορώ να πάρω τα στοιχεία της συνταγής μεσα από την εκτέλεσή της*/
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "prescription_id")
-    private Prescription prescription;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "prescription_id")
+//    private Prescription prescription;
 
     public PrescriptionExecution(){
         this.executionDate = LocalDate.now().toString();
         this.executionFlag = executionPrescriptionFlag.PENDING;
     }
 
-    public PrescriptionExecution(String pharmacistAFM) {
-        //this.pharmacistAFM = pharmacistAFM;
+    public PrescriptionExecution(String pharmacistAFM, QuantityExecution quantityExecution) {
+        this.pharmacistAFM = pharmacistAFM;
         this.executionDate = LocalDate.now().toString();
         this.executionFlag = executionPrescriptionFlag.PENDING;
+        //this.quantityExecutions = (Set<QuantityExecution>) quantityExecution;
     }
 
     public Integer getId() {
@@ -100,5 +106,13 @@ public class PrescriptionExecution {
 
     public void setPrescription(Prescription prescription) {
         this.prescription = prescription;
+    }
+
+    public Set<QuantityExecution> getQuantityExecutions() {
+        return quantityExecutions;
+    }
+
+    public void setQuantityExecutions(Set<QuantityExecution> quantityExecutions) {
+        this.quantityExecutions = quantityExecutions;
     }
 }

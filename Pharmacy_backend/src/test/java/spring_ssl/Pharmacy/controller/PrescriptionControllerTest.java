@@ -20,7 +20,7 @@ public class PrescriptionControllerTest {
 
         Assertions.assertEquals(52, prescription.getId());
         Assertions.assertEquals(2, prescription.getQuantityPrescriptions().size());
-        Assertions.assertEquals(2, prescription.getPrescriptionExecution().getId());
+        Assertions.assertEquals(2, prescription.getPrescriptionExecution());
 
 
     }

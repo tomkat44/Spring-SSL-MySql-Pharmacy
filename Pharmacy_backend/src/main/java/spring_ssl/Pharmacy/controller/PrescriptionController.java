@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.domain.Prescription;
 import spring_ssl.Pharmacy.domain.PrescriptionExecution;
 import spring_ssl.Pharmacy.domain.QuantityPrescription;
-import spring_ssl.Pharmacy.repository.DrugRepository;
-import spring_ssl.Pharmacy.repository.PrescriptionRepository;
-import spring_ssl.Pharmacy.repository.QuantityPrescriptionRepository;
-import spring_ssl.Pharmacy.service.DrugService;
+
 import spring_ssl.Pharmacy.service.PrescriptionExecutionService;
 import spring_ssl.Pharmacy.service.PrescriptionService;
 import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
@@ -42,11 +38,15 @@ public class PrescriptionController {
     @Transactional
     public ResponseEntity<Prescription> createPrescription(@RequestBody Prescription prescriptionRequest){
 
+        PrescriptionExecution prescriptionExecution = new PrescriptionExecution();
+        PrescriptionExecution savedPrescriptionExecution = prescriptionExecutionService.insertPrescriptionExecution(prescriptionExecution);
+
         Prescription prescription = new Prescription();
         prescription.setDoctorAMKA(prescriptionRequest.getDoctorAMKA());
         prescription.setPatientAMKA(prescriptionRequest.getPatientAMKA());
         prescription.setDiagnosis(prescriptionRequest.getDiagnosis());
         prescription.setCreationDate(prescriptionRequest.getCreationDate());
+        prescription.setPrescriptionExecution(savedPrescriptionExecution);
         Prescription savedPrescription = prescriptionService.insertPrescription(prescription);
 
         // Step 2: Save QuantityPrescriptions linked to the Prescription
@@ -58,9 +58,9 @@ public class PrescriptionController {
             quantityPrescriptionService.insertQuantityPrescription(quantityPrescription);
         }
 
-        PrescriptionExecution prescriptionExecution = new PrescriptionExecution();
-        prescriptionExecution.setPrescription(savedPrescription);
-        prescriptionExecutionService.insertPrescriptionExecution(prescriptionExecution);
+
+
+
 
         return new ResponseEntity<>(prescriptionRequest, HttpStatus.CREATED);
     }
