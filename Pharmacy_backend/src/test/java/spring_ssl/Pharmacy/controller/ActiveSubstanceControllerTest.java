@@ -13,7 +13,7 @@ public class ActiveSubstanceControllerTest {
     @Test
     public void findActiveSubstanceByName() {
         ActiveSubstance activeSubstance;
-        activeSubstance = when().get("http://localhost:8080/activesubstance/povidoni")
+        activeSubstance = when().get("http://localhost:8080/activesubstance/getSingle/povidoni")
                 .then()
                 .statusCode(200)
                 .extract().as(ActiveSubstance.class);

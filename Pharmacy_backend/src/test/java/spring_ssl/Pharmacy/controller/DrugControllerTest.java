@@ -12,7 +12,7 @@ public class DrugControllerTest {
     @Test
     public void findDrugByName() {
         Drug drug;
-        drug = when().get("http://localhost:8080/drug/Betadine")
+        drug = when().get("http://localhost:8080/drug/getSingle/Betadine")
                 .then()
                 .statusCode(200)
                 .extract().as(Drug.class);

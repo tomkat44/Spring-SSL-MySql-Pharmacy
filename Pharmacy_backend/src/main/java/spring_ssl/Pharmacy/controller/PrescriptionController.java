@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.domain.Prescription;
+import spring_ssl.Pharmacy.domain.PrescriptionExecution;
 import spring_ssl.Pharmacy.domain.QuantityPrescription;
 import spring_ssl.Pharmacy.repository.DrugRepository;
 import spring_ssl.Pharmacy.repository.PrescriptionRepository;
 import spring_ssl.Pharmacy.repository.QuantityPrescriptionRepository;
 import spring_ssl.Pharmacy.service.DrugService;
+import spring_ssl.Pharmacy.service.PrescriptionExecutionService;
 import spring_ssl.Pharmacy.service.PrescriptionService;
 import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
@@ -28,10 +30,12 @@ public class PrescriptionController {
     @Autowired
     private final PrescriptionService prescriptionService;
     private final QuantityPrescriptionService quantityPrescriptionService;
+    private final PrescriptionExecutionService prescriptionExecutionService;
 
-    public PrescriptionController(PrescriptionService prescriptionService, QuantityPrescriptionService quantityPrescriptionService) {
+    public PrescriptionController(PrescriptionService prescriptionService, QuantityPrescriptionService quantityPrescriptionService, PrescriptionExecutionService prescriptionExecutionService) {
         this.prescriptionService = prescriptionService;
         this.quantityPrescriptionService = quantityPrescriptionService;
+        this.prescriptionExecutionService = prescriptionExecutionService;
     }
 
     @PostMapping("/add")
@@ -53,11 +57,16 @@ public class PrescriptionController {
             quantityPrescription.setDrug(quantityData.getDrug());
             quantityPrescriptionService.insertQuantityPrescription(quantityPrescription);
         }
+
+        PrescriptionExecution prescriptionExecution = new PrescriptionExecution();
+        prescriptionExecution.setPrescription(savedPrescription);
+        prescriptionExecutionService.insertPrescriptionExecution(prescriptionExecution);
+
         return new ResponseEntity<>(prescriptionRequest, HttpStatus.CREATED);
     }
 
 
-    @GetMapping("/{prescriptionId}")
+    @GetMapping("/getSingle/{prescriptionId}")
     public ResponseEntity<Prescription> getSinglePrescription(@PathVariable int prescriptionId){
         return new ResponseEntity<Prescription>(prescriptionService.getPrescriptionById(prescriptionId), HttpStatus.OK);
     }

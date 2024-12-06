@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//In the following line the scope used here and to the Prescription Execution to separete the @id between two classes.
+//The problem appears in the @Test
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Prescription.class)
 @Entity
 @Table(name="prescription")
 public class Prescription {
@@ -29,6 +31,10 @@ public class Prescription {
 
     @Column(name="creation_Date", length=40)
     private String creationDate = LocalDate.now().toString();
+
+    @OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
+    private PrescriptionExecution prescriptionExecution;
+
 
     /*Σχέση πολλά προς 1 το οποίο πρέπει να είναι mappedBy = "prescription" όπου
      * αυτό είναι το ίδιο όνομα με τον πίνακα @ManyToOne στο QuantityPrescription*/
@@ -84,6 +90,14 @@ public class Prescription {
 
     public void setDiagnosis(String diagnosis) {
         this.diagnosis = diagnosis;
+    }
+
+    public PrescriptionExecution getPrescriptionExecution() {
+        return prescriptionExecution;
+    }
+
+    public void setPrescriptionExecution(PrescriptionExecution prescriptionExecution) {
+        this.prescriptionExecution = prescriptionExecution;
     }
 
     public Set<QuantityPrescription> getQuantityPrescriptions() {
