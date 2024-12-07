@@ -1,12 +1,15 @@
 package spring_ssl.Pharmacy.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name="active_substance")
-public class ActiveSubstance {
+public class ActiveSubstance{
 
     @Id
     @Column(name="id")

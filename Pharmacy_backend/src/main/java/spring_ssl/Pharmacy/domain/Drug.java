@@ -2,16 +2,20 @@ package spring_ssl.Pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 //The following line help to ignore the multiple feedback from DB because of the EAGER.
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Drug {
+@Table(name="drug")
+public class Drug{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +29,7 @@ public class Drug {
     private MedicineCategory medicineCategory;
 
     //To fetch the active substance in Postman i should write EAGER OR @JsonIgnore to avoid serialization - decetrialization
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "active_substance_id", nullable = false)
     //@JsonIgnore
     private ActiveSubstance activeSubstance;

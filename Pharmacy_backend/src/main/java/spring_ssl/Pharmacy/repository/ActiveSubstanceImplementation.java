@@ -28,4 +28,9 @@ public class ActiveSubstanceImplementation implements ActiveSubstanceService {
     @Override
     public ActiveSubstance singleActiveSubstance(String name) {return activeSubstanceRepository.getSingleByName(name);}
 
+    @Override
+    public ActiveSubstance getActiveSubstanceById(int substanceId) {
+        return activeSubstanceRepository.getSingleById(substanceId);
+    }
+
 }

@@ -1,6 +1,7 @@
 package spring_ssl.Pharmacy.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import spring_ssl.Pharmacy.repository.PrescriptionExecutionRepository;
@@ -12,6 +13,7 @@ import java.util.Set;
 //In the following line the scope used here and to the Prescription Execution to separete the @id between two classes.
 //The problem appears in the @Test
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Prescription.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name="prescription")
 public class Prescription {
@@ -40,11 +42,18 @@ public class Prescription {
     @JoinColumn(name = "prescription_execution_id")
     private PrescriptionExecution prescriptionExecution;
 
-
     /*Σχέση πολλά προς 1 το οποίο πρέπει να είναι mappedBy = "prescription" όπου
      * αυτό είναι το ίδιο όνομα με τον πίνακα @ManyToOne στο QuantityPrescription*/
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
     private Set<QuantityPrescription> quantityPrescriptions = new HashSet<QuantityPrescription>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id", nullable = false)
+    private Doctor doctor_prescription;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient_prescription;
 
     public Prescription() {
     }
@@ -117,13 +126,19 @@ public class Prescription {
         this.quantityPrescriptions.add(qp);
     }
 
-    public void addDrug(Drug drug, int qpNumber){
-        QuantityPrescription qp = new QuantityPrescription();
-        qp.setDrug(drug);
-        qp.setPrescription(this);
-        qp.setQuantityPrescription(qpNumber);
+    public Doctor getDoctor_prescription() {
+        return doctor_prescription;
+    }
 
-        this.quantityPrescriptions.add(qp);
-        qp.getPrescription().addQuantityPrescription(qp);
+    public void setDoctor_prescription(Doctor doctor_prescription) {
+        this.doctor_prescription = doctor_prescription;
+    }
+
+    public Patient getPatient_prescription() {
+        return patient_prescription;
+    }
+
+    public void setPatient_prescription(Patient patient_prescription) {
+        this.patient_prescription = patient_prescription;
     }
 }

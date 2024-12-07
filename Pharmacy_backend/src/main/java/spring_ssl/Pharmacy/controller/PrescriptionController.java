@@ -4,13 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring_ssl.Pharmacy.domain.Prescription;
-import spring_ssl.Pharmacy.domain.PrescriptionExecution;
-import spring_ssl.Pharmacy.domain.QuantityPrescription;
+import spring_ssl.Pharmacy.domain.*;
 
-import spring_ssl.Pharmacy.service.PrescriptionExecutionService;
-import spring_ssl.Pharmacy.service.PrescriptionService;
-import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
+import spring_ssl.Pharmacy.service.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -27,16 +23,29 @@ public class PrescriptionController {
     private final PrescriptionService prescriptionService;
     private final QuantityPrescriptionService quantityPrescriptionService;
     private final PrescriptionExecutionService prescriptionExecutionService;
+    private final DoctorService doctorService;
+    private final PatientService patientService;
 
-    public PrescriptionController(PrescriptionService prescriptionService, QuantityPrescriptionService quantityPrescriptionService, PrescriptionExecutionService prescriptionExecutionService) {
+    public PrescriptionController(PrescriptionService prescriptionService, QuantityPrescriptionService quantityPrescriptionService,
+                                  PrescriptionExecutionService prescriptionExecutionService, DoctorService doctorService,
+                                  PatientService patientService) {
         this.prescriptionService = prescriptionService;
         this.quantityPrescriptionService = quantityPrescriptionService;
         this.prescriptionExecutionService = prescriptionExecutionService;
+        this.doctorService = doctorService;
+        this.patientService = patientService;
     }
 
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<Prescription> createPrescription(@RequestBody Prescription prescriptionRequest){
+
+        //To insert Doctor id into Prescription for Mapping and representation
+        Doctor doctor = new Doctor();
+        doctor = doctorService.getSingleDoctorByAmka(prescriptionRequest.getDoctorAMKA());
+
+        Patient patient = new Patient();
+        patient = patientService.getSinglePatientByAmka(prescriptionRequest.getPatientAMKA());
 
         PrescriptionExecution prescriptionExecution = new PrescriptionExecution();
         PrescriptionExecution savedPrescriptionExecution = prescriptionExecutionService.insertPrescriptionExecution(prescriptionExecution);
@@ -47,6 +56,8 @@ public class PrescriptionController {
         prescription.setDiagnosis(prescriptionRequest.getDiagnosis());
         prescription.setCreationDate(prescriptionRequest.getCreationDate());
         prescription.setPrescriptionExecution(savedPrescriptionExecution);
+        prescription.setDoctor_prescription(doctor);
+        prescription.setPatient_prescription(patient);
         Prescription savedPrescription = prescriptionService.insertPrescription(prescription);
 
         // Step 2: Save QuantityPrescriptions linked to the Prescription
