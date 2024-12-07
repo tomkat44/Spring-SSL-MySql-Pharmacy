@@ -21,9 +21,9 @@ public class QuantityExecution {
     @Column(name="quantity_execution_pieces", length = 10)
     private Integer quantityExecutionPieces;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "drug_id")
-//    private Drug drug;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drug_id")
+    private Drug drug;
 
     //, cascade = CascadeType.ALL
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,13 +56,13 @@ public class QuantityExecution {
         this.quantityExecutionPieces = quantityExecutionPieces;
     }
 
-//    public Drug getDrug() {
-//        return drug;
-//    }
-//
-//    public void setDrug(Drug drug) {
-//        this.drug = drug;
-//    }
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
 
     public PrescriptionExecution getPrescriptionExecution() {
         return prescriptionExecution;

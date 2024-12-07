@@ -18,7 +18,7 @@ public class PrescriptionExecution {
     @Id
     @Column(name="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name="pharmacist_AFM", length=15)
     private String pharmacistAFM;
@@ -62,11 +62,11 @@ public class PrescriptionExecution {
         //this.quantityExecutions = (Set<QuantityExecution>) quantityExecution;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

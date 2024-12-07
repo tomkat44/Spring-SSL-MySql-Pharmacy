@@ -9,7 +9,9 @@ import spring_ssl.Pharmacy.domain.PrescriptionExecution;
 import spring_ssl.Pharmacy.domain.QuantityExecution;
 import spring_ssl.Pharmacy.domain.QuantityPrescription;
 import spring_ssl.Pharmacy.service.PrescriptionExecutionService;
+import spring_ssl.Pharmacy.service.PrescriptionService;
 import spring_ssl.Pharmacy.service.QuantityExecutionService;
+import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
 @RestController
 @RequestMapping("/prescriptionExecution")
@@ -19,10 +21,14 @@ public class PrescriptionExecutionController {
     @Autowired
     private final PrescriptionExecutionService prescriptionExecutionService;
     private final QuantityExecutionService quantityExecutionService;
+    private final PrescriptionService prescriptionService;
 
-    public PrescriptionExecutionController(PrescriptionExecutionService prescriptionExecutionService, QuantityExecutionService quantityExecutionService){
+    public PrescriptionExecutionController(PrescriptionExecutionService prescriptionExecutionService,
+                                           QuantityExecutionService quantityExecutionService,
+                                           PrescriptionService prescriptionService){
         this.prescriptionExecutionService = prescriptionExecutionService;
         this.quantityExecutionService = quantityExecutionService;
+        this.prescriptionService = prescriptionService;
     }
 
     @GetMapping("/getSingle/{prescriptionExecutionId}")
@@ -30,20 +36,31 @@ public class PrescriptionExecutionController {
         return new ResponseEntity<PrescriptionExecution>(prescriptionExecutionService.getPrescriptionExecutionById(prescriptionExecutionId), HttpStatus.OK);
     }
 
-    @PutMapping("/execute/{id}")
-    public ResponseEntity<PrescriptionExecution> executePrescription(@RequestBody PrescriptionExecution prescriptionExecutionRequest, @PathVariable int id) {
+    @PutMapping("/execute")
+    public ResponseEntity<PrescriptionExecution> executePrescription(@RequestBody PrescriptionExecution prescriptionExecutionRequest) {
 
 
         PrescriptionExecution savedPrescriptionExecution = prescriptionExecutionService.insertPrescriptionExecution(prescriptionExecutionRequest);
         System.out.println("ID = "+savedPrescriptionExecution.getId());
         System.out.println("Pharmacist = "+savedPrescriptionExecution.getPharmacistAFM());
 
+        Prescription prescription = new Prescription();
+                prescription = prescriptionService.getPrescriptionByIdOfPrescriptionExecution(savedPrescriptionExecution);
+        System.out.println("ID = "+prescription.getId());
+        System.out.println("PreseciptionId = "+prescription.getId());
+        System.out.println("QiantityPrescription size = "+prescription.getQuantityPrescriptions().size());
+
         // Step 2: Save QuantityPrescriptions linked to the Prescription
         for (QuantityExecution quantityData : prescriptionExecutionRequest.getQuantityExecutions()) {
             QuantityExecution quantityExecution = new QuantityExecution();
             quantityExecution.setPrescriptionExecution(savedPrescriptionExecution);
             quantityExecution.setQuantityExecutionPieces(quantityData.getQuantityExecutionPieces());
-            //quantityExecution.setDrug(quantityData.getPrescriptionExecution().getPrescription().);
+
+
+            for(QuantityPrescription qp : prescription.getQuantityPrescriptions()){
+                quantityExecution.setDrug(qp.getDrug());
+            }
+
             quantityExecutionService.insertQuantityExecution(quantityExecution);
 
 

@@ -6,10 +6,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import spring_ssl.Pharmacy.domain.Drug;
 import spring_ssl.Pharmacy.domain.Prescription;
+import spring_ssl.Pharmacy.domain.PrescriptionExecution;
 
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Integer> {
 
     @Query(value="SELECT p from Prescription p where p.id=:val")
     public Prescription getSingleById(@Param("val") int prescriptionId);
+
+
+    //This Query works with VAL PrescriptionExecution because ths state declares of the relestionship between
+    //the Prescription and PrescriptionExecution Classes. NOT WORK with INT. !!
+    @Query(value="SELECT p from Prescription p where p.prescriptionExecution=:val")
+    public Prescription getSingleByIdOfPrescriptionExecution(@Param("val") PrescriptionExecution prescriptionExecutionId);
 }
