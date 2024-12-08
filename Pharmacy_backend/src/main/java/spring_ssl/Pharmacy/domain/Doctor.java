@@ -37,6 +37,12 @@ public class Doctor {
 
     }
 
+    public Doctor(String amka, String email, String password) {
+        this.amka = amka;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }
