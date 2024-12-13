@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring_ssl.Pharmacy.domain.Doctor;
+import spring_ssl.Pharmacy.domain.Prescription;
 import spring_ssl.Pharmacy.exception.DoctorNotFoundException;
 import spring_ssl.Pharmacy.service.DoctorService;
+import spring_ssl.Pharmacy.service.PrescriptionService;
 
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -24,6 +26,7 @@ public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
+    private PrescriptionService prescriptionService;
 
     @PostMapping("/add")
     public ResponseEntity<Doctor> add(@RequestBody Doctor doctor){

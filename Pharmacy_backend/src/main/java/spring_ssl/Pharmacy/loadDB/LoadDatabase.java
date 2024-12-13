@@ -1,12 +1,4 @@
-package spring_ssl.Pharmacy.exception;
-
-import org.springframework.context.annotation.Configuration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import spring_ssl.Pharmacy.domain.Doctor;
-import spring_ssl.Pharmacy.repository.DoctorRepository;
+package spring_ssl.Pharmacy.loadDB;
 
 //Comment the following lines because they fill th DB every time.
 //@Configuration

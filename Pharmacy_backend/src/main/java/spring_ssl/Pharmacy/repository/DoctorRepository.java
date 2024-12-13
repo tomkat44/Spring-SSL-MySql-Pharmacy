@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import spring_ssl.Pharmacy.domain.Doctor;
 import spring_ssl.Pharmacy.domain.Drug;
 
+import java.util.Optional;
+
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
@@ -16,6 +18,11 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
     @Query(value="SELECT d from Doctor d where d.amka=:val")
     public Doctor getSingleByAmka(@Param("val") String doctorAmka);
+
+    @Query(value="SELECT d from Doctor d where d.email=:val")
+    public Doctor getSingleByEmail(@Param("val") String doctorEmail);
+
+    Optional<Doctor> findSingleByEmail(String email);
 
     @Modifying
     @Query(value = "DELETE FROM Doctor d where d.amka=:val")
