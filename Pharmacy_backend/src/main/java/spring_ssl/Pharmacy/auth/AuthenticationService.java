@@ -65,12 +65,14 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         //I call this method for the authentication because if it is not correct an auto Exception appears
 
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                         )
         );
+
 
         var doctor = doctorRepository.findSingleByEmail(request.getEmail())
                 .orElseThrow();
