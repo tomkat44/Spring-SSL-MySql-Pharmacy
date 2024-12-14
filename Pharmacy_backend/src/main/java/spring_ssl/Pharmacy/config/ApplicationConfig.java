@@ -13,20 +13,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import spring_ssl.Pharmacy.repository.DoctorRepository;
+import spring_ssl.Pharmacy.repository.UserRepository;
 
 @Configuration
 //@RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final DoctorRepository doctorRepository;
+    private final UserRepository userRepository;
 
-    public ApplicationConfig(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
+    public ApplicationConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> doctorRepository.findSingleByEmail(username)
+        return username -> userRepository.findSingleByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not Found"));
     }
 

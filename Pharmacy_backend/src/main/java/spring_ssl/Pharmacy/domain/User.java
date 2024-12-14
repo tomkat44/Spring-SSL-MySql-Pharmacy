@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Doctor.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 //@Builder(builderClassName="Builder")
@@ -19,8 +20,8 @@ import java.util.*;
 //@NoArgsConstructor
 //@AllArgsConstructor
 @Entity
-@Table(name="doctor")
-public class Doctor implements UserDetails {
+@Table(name="user")
+public class User implements UserDetails {
 
     @Id
     @Column(name="id")
@@ -40,19 +41,18 @@ public class Doctor implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
-//    @OneToMany(mappedBy="doctor_prescription", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    //    @OneToMany(mappedBy="doctor_prescription", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
 //    private Set<Prescription> doctorPrescriptions = new HashSet<Prescription>();
 
-
-    public Doctor(){
+    public User(){
 
     }
 
-    public Doctor(String amka, String email, String password) {
+    public User(String amka, String email, String password, Role role) {
         this.amka = amka;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -79,6 +79,10 @@ public class Doctor implements UserDetails {
         this.email = email;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -87,10 +91,7 @@ public class Doctor implements UserDetails {
         this.role = role;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(role.name()));
-//    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -130,28 +131,10 @@ public class Doctor implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-//    public Set<Prescription> getPrescriptions() {
-//        return doctorPrescriptions;
-//    }
-//
-//    public void setPrescriptions(Set<Prescription> prescriptions) {
-//        this.doctorPrescriptions = prescriptions;
-//    }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Doctor doctor = (Doctor) o;
-        return id == doctor.id && Objects.equals(amka, doctor.amka) && Objects.equals(email, doctor.email) && Objects.equals(password, doctor.password) && role == doctor.role;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, amka, email, password, role);
-    }
+
+
+
 }
