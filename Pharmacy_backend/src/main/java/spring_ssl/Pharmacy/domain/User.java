@@ -96,9 +96,20 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == Role.ADMIN){
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_DOCTOR"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_DOCTOR"),
+                    new SimpleGrantedAuthority("ROLE_PATIENT"),
+                    new SimpleGrantedAuthority("ROLE_PHARMACIST"));
+        } else if(this.role == Role.DOCTOR){
+            return List.of(new SimpleGrantedAuthority("ROLE_DOCTOR"));
+        } else if (this.role == Role.PHARMACIST) {
+            return List.of(new SimpleGrantedAuthority("ROLE_PHARMACIST"));
+        } else if(this.role == Role.PATIENT){
+            return List.of(new SimpleGrantedAuthority("ROLE_PATIENT"));
+        } else {
+            return null;
         }
-        return List.of(new SimpleGrantedAuthority("ROLE_DOCTOR"));
+
     }
 
     @Override

@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import spring_ssl.Pharmacy.domain.Role;
 
 import java.security.Key;
 import java.util.Date;
@@ -19,11 +20,13 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final String SECRET_KEY = "fJvdeN9PoQRo1E5OkySYAShIlfYb2Fj9Nc4aTerT5X+5FFf9dYngAP03C7xzxhNc";
+    private Object Role;
 
     //this method needs the extractClaim and extractAllClaims methods below
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
+
 
     //Extract one single claim from the Token
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
