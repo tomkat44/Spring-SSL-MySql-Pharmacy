@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/prescription")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class PrescriptionController {
 
     @Autowired

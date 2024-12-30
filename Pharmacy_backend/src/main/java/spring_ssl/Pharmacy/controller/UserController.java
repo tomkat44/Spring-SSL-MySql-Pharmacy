@@ -22,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class UserController {
 
     @Autowired

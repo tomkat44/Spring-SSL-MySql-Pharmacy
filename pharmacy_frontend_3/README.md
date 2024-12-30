@@ -1,4 +1,6 @@
-# pharmacy_frontend
+# pharmacy_frontend_3
+
+npm istall axios --save
 
 ## Project setup
 ```

@@ -15,7 +15,7 @@ import spring_ssl.Pharmacy.service.QuantityPrescriptionService;
 
 @RestController
 @RequestMapping("/prescriptionExecution")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class PrescriptionExecutionController {
 
     @Autowired

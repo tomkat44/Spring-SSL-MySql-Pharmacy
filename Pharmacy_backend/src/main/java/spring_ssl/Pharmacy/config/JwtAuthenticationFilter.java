@@ -43,17 +43,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail;
         final String userRole;
 
+        System.out.println("Enter to Filters");
+        System.out.println("AuthHeader = "+ authHeader);
+        System.out.println("Authorization Header: " + request.getHeader("Authorization"));
+
         //Implement the Check if the header has the jwt
         if (authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response); //with this i stop the execution
             return;
         }
 
+        System.out.println("Read to check JWT");
         //Try to extract the JWT from the Header
         jwt = authHeader.substring(7); //The 7 is because the word Bearer with the space is 7 letters
         userEmail = jwtService.extractUsername(jwt);//extract the userEmail from JWT token
 
-
+        System.out.println("JWT = "+ jwt);
 
 
         //Checks if the user is not authenticated and if not bring user from DB

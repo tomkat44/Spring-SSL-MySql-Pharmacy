@@ -2,15 +2,16 @@ package spring_ssl.Pharmacy.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spring_ssl.Pharmacy.exception.UserFoundException;
 
 @RestController
 @RequestMapping("/auth")
 //@RequiredArgsConstructor
+@CrossOrigin(
+        origins = "http://localhost:3334", // CORES and allow credentials
+        allowCredentials = "true"
+)//to avoid CORS problem
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;

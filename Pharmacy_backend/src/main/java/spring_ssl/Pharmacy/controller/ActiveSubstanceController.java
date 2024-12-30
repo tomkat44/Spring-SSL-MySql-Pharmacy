@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/activesubstance")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class ActiveSubstanceController {
 
     @Autowired

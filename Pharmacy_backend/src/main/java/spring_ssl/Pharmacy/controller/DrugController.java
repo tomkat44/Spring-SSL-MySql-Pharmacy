@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/drug")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class DrugController {
 
     @Autowired

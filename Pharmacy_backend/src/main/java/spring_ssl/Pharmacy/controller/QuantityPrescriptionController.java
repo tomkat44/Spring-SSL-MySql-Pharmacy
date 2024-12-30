@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/createPrescription")
-@CrossOrigin //to avoid CORS problem
+@CrossOrigin
 public class QuantityPrescriptionController {
 
     @Autowired
