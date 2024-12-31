@@ -8,10 +8,10 @@ import spring_ssl.Pharmacy.exception.UserFoundException;
 @RestController
 @RequestMapping("/auth")
 //@RequiredArgsConstructor
-@CrossOrigin(
-        origins = "http://localhost:3334", // CORES and allow credentials
-        allowCredentials = "true"
-)//to avoid CORS problem
+//@CrossOrigin(
+//        origins = "http://localhost:3334", // CORES and allow credentials
+//        allowCredentials = "true"
+//)//to avoid CORS problem
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
