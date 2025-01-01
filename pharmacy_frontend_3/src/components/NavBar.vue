@@ -6,7 +6,10 @@
     <div>
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <router-link :to="{name:'LoginPage'}" class="nav-link active"  href="#">Login</router-link>
+          <router-link :to="{name:'LoginPage'}" class="nav-link active" v-if="!isTokenValid" href="#">Login</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name:'LogoutPage'}" class="nav-link active" v-if="isTokenValid" href="#">Logout</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/register" class="nav-link active"  href="#">Register</router-link>
@@ -19,9 +22,19 @@
 </template>
 
 <script>
-export default {
-    name:"NavBar"
+import {mapGetters} from 'vuex'
 
+export default {
+    name:"NavBar",
+    data(){
+      return{
+        validToken: localStorage.getItem('token')
+        
+      } 
+    },
+    computed:{
+      ...mapGetters(['isTokenValid'])
+    }
 }
 </script>
 

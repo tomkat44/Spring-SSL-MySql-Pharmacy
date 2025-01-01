@@ -1,5 +1,7 @@
 <template>
-    
+    <div v-if="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
 
     <table class="table">
   <thead>
@@ -28,17 +30,24 @@ export default {
 
     data() {
     return {
-        users:[]
+        users:[],
+        error:''
       
     }
    },
 
     async created(){
-      console.log(localStorage.getItem('token'));
+        try{
+      console.log(localStorage.getItem('jwtToken'));
       const response = await axios.get('user/getAll');
       this.users = response.data._embedded.userList
       console.log(response);
       console.log(response.data._embedded.userList);
+    } catch(e) {
+        console.log();
+      this.error = 'You are not Authenticated';
+      console.log(this.error);
+    }
     }
 
 }
